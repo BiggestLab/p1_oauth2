@@ -1,3 +1,7 @@
+# Version 0.6.6
+
+* Update copyright year
+
 # Version 0.6.3
 
 * Remove last remainig crypto:rand\_bytes() usage
