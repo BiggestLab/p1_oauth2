@@ -1,3 +1,7 @@
+# Version 0.6.8
+
+* Update travis config
+
 # Version 0.6.6
 
 * Update copyright year
