@@ -54,13 +54,13 @@
 
 %%%_ * Types -----------------------------------------------------------
 -record(response, {
-          access_token              :: oauth2:token()
-          ,access_code              :: oauth2:token()
-          ,expires_in               :: oauth2:lifetime()
+          access_token              :: oauth2:token() | undefined
+          ,access_code              :: oauth2:token() | undefined
+          ,expires_in               :: oauth2:lifetime() | undefined
           ,resource_owner           :: term()
-          ,scope                    :: oauth2:scope()
-          ,refresh_token            :: oauth2:token()
-          ,refresh_token_expires_in :: oauth2:lifetime()
+          ,scope                    :: oauth2:scope() | undefined
+          ,refresh_token            :: oauth2:token() | undefined
+          ,refresh_token_expires_in :: oauth2:lifetime() | undefined
           ,token_type = ?TOKEN_TYPE :: binary()
          }).
 
