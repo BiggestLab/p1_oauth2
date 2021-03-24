@@ -1,3 +1,7 @@
+# Version 0.6.9
+
+* Dialyzer: Update Response record definition: fields may be undefined
+
 # Version 0.6.8
 
 * Update travis config
