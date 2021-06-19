@@ -1,4 +1,4 @@
-REBAR = ./rebar
+REBAR ?= ./rebar
 
 .PHONY: all deps compile clean test ct
 
@@ -6,6 +6,7 @@ all: deps compile
 
 deps:
 	$(REBAR) get-deps
+
 
 compile:
 	$(REBAR) compile
