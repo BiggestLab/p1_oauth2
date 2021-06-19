@@ -1,6 +1,8 @@
 # P1 OAuth2
 
-[![Build Status](https://travis-ci.org/processone/p1_oauth2.svg?branch=master)](https://travis-ci.org/processone/p1_oauth2) [![Coverage Status](https://coveralls.io/repos/processone/p1_oauth2/badge.svg?branch=master&service=github)](https://coveralls.io/github/processone/p1_oauth2?branch=master) [![Hex version](https://img.shields.io/hexpm/v/p1_oauth2.svg "Hex version")](https://hex.pm/packages/p1_oauth2)
+[![CI](https://github.com/processone/p1_oauth2/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/processone/p1_oauth2/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/processone/p1_oauth2/badge.svg?branch=master&service=github)](https://coveralls.io/github/processone/p1_oauth2?branch=master)
+[![Hex version](https://img.shields.io/hexpm/v/p1_oauth2.svg "Hex version")](https://hex.pm/packages/p1_oauth2)
 
 This library is designed to simplify the implementation of the server side
 of OAuth2 (http://tools.ietf.org/html/rfc6749). It provides
