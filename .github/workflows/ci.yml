@@ -25,6 +25,7 @@ jobs:
           ~/.cache/rebar3/
         key: ${{matrix.otp}}-${{hashFiles('rebar.config')}}
 
+    - run: make test
     - run: TEST=true rebar3 compile
     - run: TEST=true rebar3 xref
     - run: TEST=true rebar3 dialyzer
