@@ -1,3 +1,7 @@
+# Version 0.6.10
+
+* Switch from using Travis to Github Actions as CI
+
 # Version 0.6.9
 
 * Dialyzer: Update Response record definition: fields may be undefined
