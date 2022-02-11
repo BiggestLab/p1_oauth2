@@ -21,7 +21,6 @@
 -module(oauth2_token_generation).
 
 %%%_* Behaviour ========================================================
-%% @doc Generates a random OAuth2 token.
 -callback generate(oauth2:context()) -> oauth2:token().
 
 %%%_* Tests ============================================================
