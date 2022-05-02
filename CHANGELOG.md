@@ -1,3 +1,9 @@
+# Version 0.6.11
+
+* Generate documentation when generating hex.pm package
+* Remove usage of deprecated crypto functions
+* Improve errors reporting
+
 # Version 0.6.10
 
 * Switch from using Travis to Github Actions as CI
