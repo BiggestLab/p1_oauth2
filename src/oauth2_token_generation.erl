@@ -21,7 +21,7 @@
 -module(oauth2_token_generation).
 
 %%%_* Behaviour ========================================================
--callback generate(oauth2:context()) -> oauth2:token().
+-callback generate(atom(), oauth2:context()) -> oauth2:token().
 
 %%%_* Tests ============================================================
 -ifdef(TEST).
