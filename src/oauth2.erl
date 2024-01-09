@@ -310,23 +310,29 @@ refresh_access_token(Client, RefreshToken, Scope, Ctx0) ->
                     {ok, ExpiryAbsolute} = get(GrantCtx, <<"expiry_time">>),
                     case ExpiryAbsolute > seconds_since_epoch(0) of
                         true ->
-                            {ok, C}        = get(GrantCtx, <<"client">>),
-                            {ok, RegScope} = get(GrantCtx, <<"scope">>),
-                            case ?BACKEND:verify_scope( RegScope
-                                                      , Scope
-                                                      , Ctx2) of
-                                {error, _}             -> {error, invalid_scope};
-                                {ok, {Ctx3, VerScope}} ->
-                                    {ok, ResOwner} = get( GrantCtx
-                                                        , <<"resource_owner">> ),
-                                    TTL = oauth2_config:expiry_time(
-                                            password_credentials),
-                                    issue_token(#a{ client   = C
-                                                  , resowner = ResOwner
-                                                  , scope    = VerScope
-                                                  , ttl      = TTL
-                                                  }, Ctx3)
-                            end;
+                            {ok, ExpectedClient} = get(GrantCtx, <<"client">>),
+                            case ExpectedClient == C of
+                                true ->
+                                    {ok, RegScope} = get(GrantCtx, <<"scope">>),
+                                    case ?BACKEND:verify_scope( RegScope
+                                                            , Scope
+                                                            , Ctx2) of
+                                        {error, _}             -> {error, invalid_scope};
+                                        {ok, {Ctx3, VerScope}} ->
+                                            {ok, ResOwner} = get( GrantCtx
+                                                                , <<"resource_owner">> ),
+                                            TTL = oauth2_config:expiry_time(
+                                                    password_credentials),
+                                            issue_token(#a{ client   = C
+                                                        , resowner = ResOwner
+                                                        , scope    = VerScope
+                                                        , ttl      = TTL
+                                                        }, Ctx3)
+                                    end;
+                                false ->
+                                    ?BACKEND:revoke_refresh_token(RefreshToken, Ctx2),
+                                    {error, stolen_token}
+                        end;
                         false ->
                             ?BACKEND:revoke_refresh_token(RefreshToken, Ctx2),
                             {error, invalid_grant}
