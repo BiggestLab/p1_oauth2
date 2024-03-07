@@ -24,7 +24,7 @@
 
 %%%_* Exports ==========================================================
 %%%_ * API -------------------------------------------------------------
--export([generate/1]).
+-export([generate/2]).
 
 %%%_* Macros ===========================================================
 -define(TOKEN_LENGTH, 32).
@@ -32,8 +32,8 @@
 %%%_* Code =============================================================
 %%%_ * API -------------------------------------------------------------
 %% @doc Generates a random OAuth2 token.
--spec generate(oauth2:context()) -> oauth2:token().
-generate(_Context) -> generate_fragment(?TOKEN_LENGTH).
+-spec generate(atom(), oauth2:context()) -> oauth2:token().
+generate(_, _Context) -> generate_fragment(?TOKEN_LENGTH).
 
 %%%_* Private functions ================================================
 -spec generate_fragment(integer()) -> binary().
