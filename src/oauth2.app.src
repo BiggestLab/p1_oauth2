@@ -17,7 +17,7 @@
 %%% @end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-{application, p1_oauth2,
+{application, oauth2,
  [
   {description, "Erlang OAuth 2.0 implementation"},
   {vsn, "0.6.11"},

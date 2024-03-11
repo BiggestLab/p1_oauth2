@@ -117,11 +117,16 @@ authorize_password(User, Client, Scope, Ctx0) ->
 -spec authorize_password(user(), client(), rediruri(), scope(), appctx())
                             -> {ok, {appctx(), auth()}} | {error, error()}.
 authorize_password(User, Client, RedirUri, Scope, Ctx0) ->
+    % io:format("\nauthorize_password\n",),
     case ?BACKEND:get_client_identity(Client,Ctx0) of
-      {error, _}   ->{error, invalid_client};
+      {error, _}   ->
+         % io:format("\nauthorize_password get_client_identity ~p\n", [Client]),
+        {error, invalid_client};
       {ok,{Ctx1,C}} ->
         case ?BACKEND:verify_redirection_uri(C, RedirUri, Ctx1) of
-          {error, _}      -> {error, invalid_client};
+          {error, _}      ->
+            % io:format("\nauthorize_password verify_redirection_uri ~p\n", [Client]),
+            {error, invalid_client};
           {ok, Ctx2} ->
             case auth_user(User, Scope, Ctx2) of
                 {error, _} = E     -> E;
