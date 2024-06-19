@@ -210,7 +210,7 @@ authorize_code_request(User, Client, RedirUri, Scope, Ctx0) ->
 -spec issue_code(auth(), appctx()) -> {ok, {appctx(), response()}}.
 issue_code(#a{client=Client, resowner=Owner, scope=Scope, ttl=TTL}, Ctx0) ->
     GrantContext = build_context(Client, seconds_since_epoch(TTL), Owner, Scope),
-    AccessCode   = ?TOKEN:generate(authorization_code, GrantContext),
+    AccessCode   = ?TOKEN:generate(authorization_code, GrantContext, Ctx0),
     {ok, Ctx1}   = ?BACKEND:associate_access_code(AccessCode,GrantContext,Ctx0),
     {ok, {Ctx1, oauth2_response:new(<<>>,TTL,Owner,Scope,<<>>,<<>>,AccessCode)}}.
 
@@ -229,7 +229,7 @@ issue_code(#a{client=Client, resowner=Owner, scope=Scope, ttl=TTL}, Ctx0) ->
 -spec issue_token(auth(), appctx()) -> {ok, {appctx(), response()}}.
 issue_token(#a{client=Client, resowner=Owner, scope=Scope, ttl=TTL}, Ctx0) ->
     GrantContext = build_context(Client,seconds_since_epoch(TTL),Owner,Scope),
-    AccessToken  = ?TOKEN:generate(access_token, GrantContext),
+    AccessToken  = ?TOKEN:generate(access_token, GrantContext, Ctx0),
     {ok, Ctx1}   = ?BACKEND:associate_access_token( AccessToken
                                                   , GrantContext
                                                   , Ctx0 ),
@@ -252,9 +252,9 @@ issue_token_and_refresh( #a{client=Client, resowner=Owner, scope=Scope, ttl=TTL}
                        , Ctx0 ) ->
     RTTL         = oauth2_config:expiry_time(refresh_token),
     RefreshCtx   = build_context(Client,seconds_since_epoch(RTTL),Owner,Scope),
-    RefreshToken = ?TOKEN:generate(refresh_token, RefreshCtx),
+    RefreshToken = ?TOKEN:generate(refresh_token, RefreshCtx, Ctx0),
     AccessCtx    = build_context(Client,seconds_since_epoch(TTL),Owner,Scope,RefreshToken),
-    AccessToken  = ?TOKEN:generate(access_token, AccessCtx),
+    AccessToken  = ?TOKEN:generate(access_token, AccessCtx, Ctx0),
     {ok, Ctx1}   = ?BACKEND:associate_access_token( AccessToken
                                                   , AccessCtx
                                                   , Ctx0),
